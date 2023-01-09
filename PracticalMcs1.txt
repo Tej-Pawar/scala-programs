@@ -1,0 +1,423 @@
+
+1)
+
+Write a program to sort a matrix using insertion sort and check if the
+resultant matrix is upper triangular or not.
+(accept : 5M sorting : 10M check unpper triangular:10M display: 5M)
+
+>>>
+
+object SortMatrixInsertion
+{
+ def main(args:Array[String])
+ {
+ var a:Array[Int]=Array(82,54,32,227,99,2)
+ println("Array Befor Sorting ")
+ for(i<- 0 to a.length-1)
+ {
+ print(" "+a(i))
+ }
+ print("\n")
+ insert_sort(a)
+ printarray(a)
+ }
+ def insert_sort(a:Array[Int])
+ {
+ for(i<- 1 to a.length-1)
+ {
+ var key:Int=a(i)
+ var j=i-1
+ while(j>=0&&a(j)>key)
+ {
+ a(j+1)=a(j)
+ j=j-1
+ }
+ a(j+1)=key
+ }
+ }
+ def printarray(a:Array[Int])
+ {
+ println("Array After Sorting ")
+ for(i<- 0 to a.length-1)
+ {
+ print(" "+a(i))
+ }
+ print("\n")
+ }
+}
+
+>>>>>
+object UpperTriMatrix
+{
+ def main(args:Array[String])
+ {
+ var M=Array(Array(1, 3, 5, 3),
+ Array(0, 4, 6, 2),
+ Array(0, 0, 2, 5),
+ Array(0, 0, 0, 6)
+ )
+ var obj=new Tri()
+ if(obj.isUpperTriangularMatrix(M))
+ println("Yes")
+ else
+ println("No")
+ }
+ class Tri
+ {
+ final var N:Int=4
+ def isUpperTriangularMatrix(M:Array[Array[Int]]):Boolean=
+ {
+ for(i<- 1 to N-1)
+ {
+ for(j<- 0 to i-1)
+ {
+ if(M(i)(j)!=0)
+ return false
+ }
+ }
+ return true
+ }
+ }
+}
+
+
+
+////////////////////////////////////////////////////////////////////
+2)
+
+1 Create abstract class Shape with abstract functions volume() and
+display(). Extend two classes Cube and Cylinder from it. Create
+objects of Cube and Cylinder, Calculate volume of each and display
+it.
+(create abstract class :5M extend classes : 5M functions: 5M each
+display: 10M)
+
+
+abstract class Shape(r:Double,h:Double,s:Double)
+{
+ def volume()
+ def display()
+}
+class Cube(r:Double,h:Double,s:Double) extends Shape(r,h,s)
+{
+ var vol:Double=0
+ def volume()
+ {
+ vol=s*s*s
+ }
+ def display()
+ {
+ volume()
+ println(" Volume of Cube : "+vol)
+ }
+}
+class Cylinder(r:Double,h:Double,s:Double) extends Shape(r,h,s)
+{
+ var vol:Double=0
+ def volume()
+ {
+ vol=3.14*r*r*h
+ }
+ def display()
+ {
+ volume()
+ println(" Volume of Cube : "+vol)
+ }
+}
+object AbstractClass
+{
+ def main(args:Array[String])
+ {
+ var r:Double=0
+ var h:Double=0
+ var s:Double=0
+ println(" Enter the length of side for Cube ")
+ s=scala.io.StdIn.readDouble()
+ println(" Enter the radius and height of Cylinder ")
+ r=scala.io.StdIn.readFloat()
+ h=scala.io.StdIn.readFloat()
+
+ var c1=new Cube(r,h,s)
+ c1.volume()
+ c1.display()
+ var c2=new Cylinder(r,h,s)
+ c2.volume()
+ c2.display()
+ }
+}
+
+
+
+
+
+/////////////////////////// ///////////////////////////////////////////////
+
+3)
+
+1 Create a list of 10 random numbers. Create another list from members
+of first list using function 3n2+4n+6. Display second list in ascending
+order.
+(random numbers list: 10M create list with function: 10M display
+with ascending order : 10M)
+
+
+>>>
+
+import scala.collection.mutable.ListBuffer
+object ListFunc
+{
+ def main(args:Array[String])
+ {
+ var func=new ListBuffer[Int]
+ for(n<- 1 to 10)
+ {
+ func+=3*n*n+4*n+6
+ }
+ println(" List of 10 members usnig function 3n^2+4n+6 \n"+func)
+ }
+}
+
+
+///////////////////////////////////////////////////////////////////////
+
+4)
+
+1 Write a program to calculate sum of all perfect numbers between 1 and
+100. Display perfect numbers also.
+(find Perfect number : 10 M sum : 10M display numbers and sum: 10M)
+
+
+>>
+object PerfectNum
+{
+ def main(args:Array[String])
+ {
+ //var Random=Array(6,15,28,67,496)
+ println("The 5 random numbers are ")
+ /*for(r<-Random)
+ {
+ print(" "+r)
+ }*/
+ print("\n")
+ for(no<- 1 to 5)
+ {
+ var sum:Int=0
+ var i:Int=1
+ var r=new scala.util.Random
+ var n=r.nextInt(50);
+ while(i<n)
+ {
+ if(n%i==0)
+ {
+ sum=sum+i
+ }
+ i=i+1
+ }
+ if(sum==n)
+ {
+ println(n+" is a perfect number ")
+ }
+ else
+ {
+ println(n+" is not a perfect number ")
+ }
+ }
+ }
+}
+
+
+/////////////////////////////////////////////////////////////////////
+5)
+
+ Create an abstract class Order (id, description). Derive two classes
+PurchaseOrder and SalesOrder with details of Supplier and Customer.
+Create object of each PurchaseOrder And SalesOrder. Display the
+details of all supplier and customers.
+(abstract class : 5M derivation : 20 M display : 10M)
+
+>> object Orders
+{
+ def main(args:Array[String])
+ {
+ val p=new Purchase()
+ p.accept()
+ p.display()
+ val s=new Salesorder()
+ s.accept()
+ s.display()
+ }
+
+ abstract class Order
+ {
+ var id=0
+ var desc=" "
+ def accept()
+ def display()
+ }
+
+ class Purchase extends Order
+ {
+ var amt=0
+ def accept()
+ {
+ println("Enter purchase id:")
+ id=scala.io.StdIn.readInt()
+ println(" Enter the description:")
+ desc=scala.io.StdIn.readLine()
+ println("Enter the amount:")
+ amt=scala.io.StdIn.readInt()
+ }
+ def display()
+ {
+ println("\tId:"+id+"\tDescription:"+desc+"\tAmount:"+amt)
+ }
+ }
+
+ class Salesorder extends Order
+ {
+ var vendor=" "
+ var customer=" "
+ def accept()
+ {
+ println("Enter vendor name:")
+ vendor=scala.io.StdIn.readLine()
+ println("Enter customer name:")
+ customer=scala.io.StdIn.readLine()
+ }
+ def display()
+ {
+ println("\tVendor:"+vendor+"\tCustomer:"+customer)
+ }
+ }
+}
+
+
+//////////////////////////////////////////////////////////////////
+6)
+
+
+Create lists using five different methods and display each of
+them.(List style, java style, fill, range, tabulate methods)
+(each method : 5 M display : 1M each)
+>>>>>
+object CreateLists
+{
+ def main(args:Array[String])
+ {
+ val list1=10::20::30::Nil
+ println("\n Creating List using Lisp-style : "+list1)
+ val list2=List(11,22,33)
+ println("\n Creating List using Java-style : "+list2)
+ val list3=List.fill(3)("scala")
+ println("\n Creating List using fill : "+list3)
+ val list4=List.range(0,10,2)
+ println("\n Creating List using range : "+list4)
+ val list5=List.tabulate(5)(n=>n*n)
+ println("\n Creating List using tabulate : "+list5)
+ }
+}
+
+
+//////////////////////////////////////////////////////////////////
+
+7)
+
+Write a program to calculate transpose of a matrix and check if the
+resultant matrix is lower triangular or not.
+(accept : 5 M transpose : 10M check lower triangular:10M display:5M)
+>>>
+object TransposeMatrix
+{
+ def main(args:Array[String])
+ {
+ var A=Array.ofDim[Int](10,10)
+ var B=Array.ofDim[Int](10,10)
+ println("How many rows and columns in the matrix : ")
+ var r:Int=scala.io.StdIn.readInt()
+ var c:Int=scala.io.StdIn.readInt()
+ /* Accepting Array Elements */
+ println("Enter the element of matrix : ")
+ for(i<- 1 to r)
+ {
+ for(j<- 1 to c)
+ {
+ A(i)(j)=scala.io.StdIn.readInt()
+ }
+ }
+ println("Matrix Before Transpose ")
+ for(i<- 1 to r)
+ {
+ for(j<- 1 to c)
+ {
+ print(" "+A(i)(j))
+ }
+ print("\n")
+ }
+ /* Transpose of Matrix A and Store it to Matrix B */
+ for(i<- 1 to r)
+ {
+ for(j<- 1 to c)
+ {
+ B(j)(i)=A(i)(j)
+ }
+ }
+ println("Matrix After Transpose ")
+ for(i<- 1 to r)
+ {
+ for(j<- 1 to c)
+ {
+ print(" "+B(i)(j))
+ }
+ print("\n")
+ }
+ }
+}
+
+
+/////////////////////////////////////////////////////////////////////
+8)
+Design an abstract class Employee with computeSal() as an abstract
+function. Create two subclasses Worker and Manager. Salary of worker
+should be calculated on hourly basis of work and Salary of Manager
+should be calculated on monthly basis with additional incentives.
+Create five objects each of Worker and Manager class, and display their
+details.
+(abstract class and function :10M subclasses:5M salary calculation: 5 M
+each display:5M)
+>>>
+abstract class Employe
+{
+ def computsal()
+}
+class Worker extends Employe
+{
+ def computsal()
+ {
+ println("Total hours in a day:")
+ var h=scala.io.StdIn.readInt()
+ var sal=h*50*24
+ println("Monthly salary : "+sal)
+ }
+}
+class Manager extends Employe
+{
+ def computsal()
+ {
+ println("Total days in the month:")
+ var d=scala.io.StdIn.readInt()
+ var sal=d*1500
+ println("Monthly salary : "+sal)
+ }
+}
+object Salary
+{
+ def main(args:Array[String])
+ {
+ println("worker information:")
+ var w=new Worker()
+ w.computsal()
+ println("manager information:")
+ var m=new Manager()
+ m.computsal()
+ }
+}
